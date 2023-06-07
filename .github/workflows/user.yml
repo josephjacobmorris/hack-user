@@ -31,17 +31,13 @@ jobs:
         with:
           registry: team1.azurecr.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Set UUID
-        id: generate-uuid
-        uses: filipstefansson/uuid-action@v1 
+          password: ${{ secrets.DOCKERHUB_TOKEN }} 
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
           context: user
-          tags: team1.azurecr.io/user:${{ steps.generate-uuid.outputs.uuid }}
-      - run: echo ${{ steps.generate-uuid.outputs.uuid }}
+          tags: team1.azurecr.io/user:${{ github.sha }}
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
@@ -62,3 +58,6 @@ jobs:
         with:
           namespace: 'default'
           pull-images: false
+          manifests: |
+                    user.yaml
+          images: 'team1.azurecr.io/user:${{ github.sha }}'
