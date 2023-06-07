@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-team1-user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: azure-team1-user
+  template:
+    metadata:
+      labels:
+        app: azure-team1-user
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: team1user
+          image: team1.azurecr.io/user:latest
+          env:
+            - name: DATABASE_HOST
+              value: "team1.postgres.database.azure.com"
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_NAME
+              value: "user"
+            - name: DATABASE_USERNAME
+              value: "team1"
+            - name: DATABASE_PASSWORD
+              value: "2v7mKtHnXY"
+            - name: CONFIG_FILES_PATH
+              value: "/"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 3000
+              name: user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-team1-user
+spec:
+  ports:
+    - port: 3000
+  selector:
+    app: azure-team1-user
+
