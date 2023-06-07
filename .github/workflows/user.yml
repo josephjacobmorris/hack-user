@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd user/
+      - run: echo $pwd
       - run: npm install
       - run: npm test
       - name: Set up Docker Buildx
