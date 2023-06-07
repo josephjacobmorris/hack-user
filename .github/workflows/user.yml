@@ -34,7 +34,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v4
+        working-directory: user
         with:
           push: true
-          file: user/Dockerfile
+          file: Dockerfile
           tags: team1.azurecr.io/user:latest
