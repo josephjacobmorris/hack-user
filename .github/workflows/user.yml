@@ -41,6 +41,7 @@ jobs:
           push: true
           context: user
           tags: team1.azurecr.io/user:${{ steps.generate-uuid.outputs.uuid }}
+      - run: echo ${{ steps.generate-uuid.outputs.uuid }}
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
