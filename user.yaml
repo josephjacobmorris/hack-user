@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: team1user
-          image: team1.azurecr.io/user:latest
+          image: team1.azurecr.io/user:${BUILD_NUMBER}
           env:
             - name: DATABASE_HOST
               value: "team1.postgres.database.azure.com"
