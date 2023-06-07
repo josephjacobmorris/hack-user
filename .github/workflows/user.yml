@@ -32,9 +32,14 @@ jobs:
           registry: team1.azurecr.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set UUID
+        id: generate-uuid
+        uses: filipstefansson/uuid-action@v1
+        with:
+          name: ${{ gihub.sha }}     
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
           context: user
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: team1.azurecr.io/user:${{ steps.generate-uuid.outputs.uuid }}
