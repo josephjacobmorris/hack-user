@@ -37,4 +37,4 @@ jobs:
         with:
           push: true
           context: user
-          tags: team1.azurecr.io/user:latest
+          tags: ${{ steps.meta.outputs.tags }}
