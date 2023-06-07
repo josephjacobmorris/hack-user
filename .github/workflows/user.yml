@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd user/
+      - run: cd hack-user/user/
       - run: echo $(pwd)
       - run: pwd
       - run: npm install
